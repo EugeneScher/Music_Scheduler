@@ -5,7 +5,6 @@ C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo.cspr
 C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\MainWindow.g.cs
 C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\App.g.cs
 C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo_MarkupCompile.cache
-C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo_MarkupCompile.lref
 C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\MainWindow.baml
 C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo.g.resources
 C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo.Properties.Resources.resources
@@ -13,3 +12,7 @@ C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo.cspr
 C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo.csproj.CoreCompileInputs.cache
 C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo.exe
 C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo.pdb
+C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\bin\Release\Timer_demo.exe.manifest
+C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\bin\Release\Timer_demo.application
+C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo.exe.manifest
+C:\Users\Eugenius\source\repos\Timer_demo\Timer_demo\obj\Release\Timer_demo.application

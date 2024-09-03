@@ -1,68 +1,58 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Timer_demo
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private DispatcherTimer timer;
         private MediaPlayer mediaPlayer;
         private string defaultMusicFilePath;
         private string specialMusicFilePath;
+
         private readonly TimeSpan[] scheduledTimes = new TimeSpan[]
         {
-            new TimeSpan(8, 30, 0),
-            new TimeSpan(9, 15, 0),
-            new TimeSpan(9, 20, 0),
-            new TimeSpan(10, 5, 0),
-            new TimeSpan(10, 20, 0),
-            new TimeSpan(11, 0, 0),
-            new TimeSpan(11, 5, 0),
-            new TimeSpan(11, 55, 0),
-            new TimeSpan(12, 25, 0),
-            new TimeSpan(13, 10, 0),
-            new TimeSpan(13, 15, 0),
-            new TimeSpan(14, 0, 0),
-            new TimeSpan(14, 10, 0),
-            new TimeSpan(14, 55, 0),
-            new TimeSpan(15, 0, 0),
-            new TimeSpan(15, 45, 0),
-            new TimeSpan(16, 0, 0),
-            new TimeSpan(16, 45, 0),
-            new TimeSpan(16, 50, 0),
-            new TimeSpan(17, 35, 0),
-            new TimeSpan(17, 45, 0),
-            new TimeSpan(18, 30, 0),
-            new TimeSpan(18, 35, 0),
-            new TimeSpan(19, 20, 0)
+        new TimeSpan(8, 30, 0),
+        new TimeSpan(9, 15, 0),
+        new TimeSpan(9, 20, 0),
+        new TimeSpan(10, 5, 0),
+        new TimeSpan(10, 20, 0),
+        new TimeSpan(11, 0, 0),
+        new TimeSpan(11, 5, 0),
+        new TimeSpan(11, 55, 0),
+        new TimeSpan(12, 25, 0),
+        new TimeSpan(13, 10, 0),
+        new TimeSpan(13, 15, 0),
+        new TimeSpan(14, 0, 0),
+        new TimeSpan(14, 10, 0),
+        new TimeSpan(14, 55, 0),
+        new TimeSpan(15, 0, 0),
+        new TimeSpan(15, 45, 0),
+        new TimeSpan(16, 0, 0),
+        new TimeSpan(16, 45, 0),
+        new TimeSpan(16, 50, 0),
+        new TimeSpan(17, 35, 0),
+        new TimeSpan(17, 45, 0),
+        new TimeSpan(18, 30, 0),
+        new TimeSpan(18, 35, 0),
+        new TimeSpan(19, 20, 0)
         };
 
         private readonly TimeSpan[] specialTimes = new TimeSpan[]
         {
-            new TimeSpan(10, 5, 0),
-            new TimeSpan(11, 55, 0),
-            new TimeSpan(14, 0, 0),
-            new TimeSpan(15, 45, 0),
-            new TimeSpan(17, 35, 0),
-            new TimeSpan(19, 20, 0)
+        new TimeSpan(10, 5, 0),
+        new TimeSpan(11, 55, 0),
+        new TimeSpan(14, 0, 0),
+        new TimeSpan(15, 45, 0),
+        new TimeSpan(17, 35, 0),
+        new TimeSpan(19, 20, 0)
         };
+
+        public ObservableCollection<Schedule> Schedules { get; set; }
 
         public MainWindow()
         {
@@ -73,27 +63,52 @@ namespace Timer_demo
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
             timer.Start();
+
+            Schedules = new ObservableCollection<Schedule>
+        {
+            new Schedule { Pair = "1 пара", Start = "8:30", End = "9:15" },
+            new Schedule { Pair = "", Start = "9:20", End = "10:05" },
+            new Schedule { Pair = "2 пара", Start = "10:20", End = "11:00" },
+            new Schedule { Pair = "", Start = "11:05", End = "11:55" },
+            new Schedule { Pair = "3 пара", Start = "12:25", End = "13:10" },
+            new Schedule { Pair = "", Start = "13:15", End = "14:00" },
+            new Schedule { Pair = "4 пара", Start = "14:10", End = "14:55" },
+            new Schedule { Pair = "", Start = "15:00", End = "15:45" },
+            new Schedule { Pair = "5 пара", Start ="16:00", End = "16:45" },
+            new Schedule { Pair = "", Start = "16:50", End = "17:35"},
+            new Schedule { Pair = "6 пара", Start = "17:45", End ="18:30"},
+            new Schedule { Pair = "", Start = "18:35", End = "19:20"}
+        };
+
+            DataContext = this;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(defaultMusicFilePath) || string.IsNullOrEmpty(specialMusicFilePath)) return;
-
-            TimeSpan now = DateTime.Now.TimeOfDay;
-            foreach (var scheduledTime in scheduledTimes)
+            try
             {
-                if (now.Hours == scheduledTime.Hours && now.Minutes == scheduledTime.Minutes && now.Seconds == 0)
+                if (string.IsNullOrEmpty(defaultMusicFilePath) || string.IsNullOrEmpty(specialMusicFilePath)) return;
+
+                TimeSpan now = DateTime.Now.TimeOfDay;
+                foreach (var scheduledTime in scheduledTimes)
                 {
-                    if (Array.Exists(specialTimes, time => time == scheduledTime))
+                    if (now.Hours == scheduledTime.Hours && now.Minutes == scheduledTime.Minutes && now.Seconds == 0)
                     {
-                        PlayMusic(specialMusicFilePath);
+                        if (Array.Exists(specialTimes, time => time == scheduledTime))
+                        {
+                            PlayMusic(specialMusicFilePath);
+                        }
+                        else
+                        {
+                            PlayMusic(defaultMusicFilePath);
+                        }
+                        break;
                     }
-                    else
-                    {
-                        PlayMusic(defaultMusicFilePath);
-                    }
-                    break;
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
